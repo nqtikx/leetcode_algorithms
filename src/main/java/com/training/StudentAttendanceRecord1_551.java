@@ -1,6 +1,6 @@
 package com.training;
 
-public class StudentAttendanceRecord1 {
+public class StudentAttendanceRecord1_551 {
   public static boolean checkRecord(String s) {
     if (s.length() <= 1) {
       return true;
