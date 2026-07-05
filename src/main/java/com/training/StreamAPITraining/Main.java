@@ -23,10 +23,8 @@ public class Main {
     System.out.println(task9(persons));
     System.out.println(task10(persons));
     System.out.println(task11(persons));
-//    System.out.println(task12(persons));
-   task13(persons);
-   task14(persons);
-   task15(persons);
+    task12(persons);
+    task13(persons);
   }
 
   public static void task1(List<Person> persons) {
@@ -49,7 +47,7 @@ public class Main {
 
   public static void task4(List<Person> persons) {
     persons.stream()
-        .sorted()
+        .sorted(Comparator.comparing(Person::getName))
         .forEach(System.out::println);
   }
 
@@ -61,15 +59,15 @@ public class Main {
 
   public static void task6(List<Person> persons) {
     persons.stream()
-        .limit(3)
         .sorted(Comparator.comparingInt(Person::getAge).reversed())
+        .limit(3)
         .forEach(p -> System.out.println("name: " + p.getName() + "\n salary: " + p.getAge()));
   }
 
   public static void task7(List<Person> persons) {
     persons.stream()
-        .limit(3)
         .sorted(Comparator.comparingInt(Person::getSalary).reversed())
+        .limit(3)
         .forEach(p -> System.out.println("name: " + p.getName()));
   }
 
@@ -107,7 +105,7 @@ public class Main {
         .collect(Collectors.groupingBy(
             p -> {
               if (p.getAge() < 40) return "Молодой";
-              if (p.getAge() < 60 || p.getAge() > 40) return "Средний";
+              if (p.getAge() <= 60) return "Средний";
               return "Пожилой";
             },
             Collectors.mapping( // take only names
