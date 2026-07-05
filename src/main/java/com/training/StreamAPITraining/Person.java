@@ -1,6 +1,6 @@
 package com.training.StreamAPITraining;
 
-public class Person {
+public class Person implements Comparable<Person> {
   private String name;
   private String lastname;
   private int age;
@@ -40,5 +40,11 @@ public class Person {
     return "Person: {" + "name: " + getName()
         + ", lastname: " + getLastname()
         + ", age: " + getAge() + "};";
+  }
+
+
+  @Override
+  public int compareTo(Person o) {
+    return name.compareTo(o.getName());
   }
 }
