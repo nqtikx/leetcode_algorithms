@@ -2,7 +2,11 @@ package com.training.StreamAPITraining;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
 
 public class Main {
   public static void main(String[] args) {
@@ -91,29 +95,27 @@ public class Main {
         .average();
   }
 
-  /*public static int task12(List<Person> persons) {
-    return persons.stream()
-        .limit(1)
-        .sorted(Comparator.comparingInt(Person::getSalary).reversed())
-        .mapToInt(Person::getSalary);
-  }*/
+  public static void task12(List<Person> persons) {
+    Optional<Person> res =  persons.stream()
+        .max(Comparator.comparingInt(Person::getSalary));
 
-  /*public static OptionalDouble task13(List<Person> persons) {
-    return persons.stream()
-        .mapToInt(Person::getSalary)
-        .average();
+    res.ifPresent(p -> System.out.println(p.getAge() + " " + p.getLastName()));
   }
 
-  public static OptionalDouble task14(List<Person> persons) {
-    return persons.stream()
-        .mapToInt(Person::getSalary)
-        .average();
+  public static void task13(List<Person> persons) {
+   Map<String, List<String>> res = persons.stream()
+        .collect(Collectors.groupingBy(
+            p -> {
+              if (p.getAge() < 40) return "Молодой";
+              if (p.getAge() < 60 || p.getAge() > 40) return "Средний";
+              return "Пожилой";
+            },
+            Collectors.mapping( // take only names
+                Person::getName,
+                Collectors.toList()
+            )
+        ));
+
+   res.forEach((k, v) -> System.out.println(k + ": " + v));
   }
-
-  public static OptionalDouble task15(List<Person> persons) {
-    return persons.stream()
-        .mapToInt(Person::getSalary)
-        .average();
-  }*/
-
 }
